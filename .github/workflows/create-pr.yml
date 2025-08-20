@@ -1,37 +1,37 @@
-name: PR Creation
+# name: PR Creation
 
-on:
-  push:
-    branches: [ "feature**" ]
+# on:
+#   push:
+#     branches: [ "feature**" ]
 
-permissions:
-  contents: write
-  pull-requests: write
+# permissions:
+#   contents: write
+#   pull-requests: write
 
-jobs:
-  create-pr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+# jobs:
+#   create-pr:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
 
-      - name: Setup Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#       - name: Setup Git
+#         run: |
+#           git config user.name "github-actions[bot]"
+#           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Detect branch
-        id: vars
-        run: |
-          echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+#       - name: Detect branch
+#         id: vars
+#         run: |
+#           echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
 
-      - name: Open Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          base: main
-          branch: ${{ steps.vars.outputs.branch_name }}
-          title: "Automated PR from ${{ steps.vars.outputs.branch_name }}"
-          body: "This PR was created automatically from branch `${{ steps.vars.outputs.branch_name }}`."
-          draft: false
+#       - name: Open Pull Request
+#         uses: peter-evans/create-pull-request@v6
+#         with:
+#           base: main
+#           branch: ${{ steps.vars.outputs.branch_name }}
+#           title: "Automated PR from ${{ steps.vars.outputs.branch_name }}"
+#           body: "This PR was created automatically from branch `${{ steps.vars.outputs.branch_name }}`."
+#           draft: false
