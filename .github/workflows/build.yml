@@ -1,0 +1,55 @@
+name: Build CI
+
+on:
+  push:
+    branches: [ "main", "master", "feature**" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        dotnet-version: [ '8.0.x' ]   # Versão do .NET
+        node-version: [ '20.x' ]      # Versão do Node para Angular
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore .NET dependencies
+        run: dotnet restore Gateway-BookEasy-Pro/API-BookEasy-Pro/API-BookEasy-Pro/API-BookEasy-Pro.csproj
+
+      - name: Build .NET
+        run: dotnet build Gateway-BookEasy-Pro/API-BookEasy-Pro/API-BookEasy-Pro/API-BookEasy-Pro.csproj --configuration Release --no-restore
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: Portal-BookEasy-Pro/Portal-BookEasy-Pro/Portal-BookEasy-Pro/package-lock.json
+
+      - name: Install Angular dependencies
+        working-directory: Portal-BookEasy-Pro/Portal-BookEasy-Pro/Portal-BookEasy-Pro
+        run: npm install
+
+      - name: Build Angular app
+        working-directory: Portal-BookEasy-Pro/Portal-BookEasy-Pro/Portal-BookEasy-Pro
+        run: npm run build --if-present
+
+      # - name: Run .NET Tests
+      #   run: dotnet test Gateway-BookEasy-Pro/API-BookEasy-Pro/API--.Tests/API-BookEasy-Pro.Tests.csproj --no-build --verbosity normal
+      #   continue-on-error: true
+
+      # - name: Run Angular Tests
+      #   working-directory: Portal-BookEasy-Pro/Portal-BookEasy-Pro/Portal-BookEasy-Pro
+      #   run: npm test --if-present
+      #   continue-on-error: true
