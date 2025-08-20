@@ -1,0 +1,155 @@
+{
+  "nome_projeto": "BookEasy Pro",
+  "repositorio_github": "https://github.com/seu-usuario/bookeasy-pro",
+  "descricao": "Sistema completo de agendamento para prestadores de serviço com gestão inteligente de horários",
+  
+  "modulos_principais": {
+    "core": {
+      "autenticacao": {
+        "tela_deslizante_universal": "Transição suave entre imagem de fundo e formulário",
+        "jwt": "Autenticação com tokens seguros para funcionários",
+        "recuperacao_senha": "Fluxo completo via e-mail",
+        "perfis": ["Administrador", "Funcionário"]
+      },
+      "dashboard_inteligente": {
+        "widgets": [
+          "Solicitações pendentes (contador dinâmico)",
+          "Notificações não lidas (com marcadores)",
+          "Alertas de conflitos de horário"
+        ],
+        "menu_permanente": ["Solicitações", "Notificações", "Agenda", "Clientes", "Serviços"]
+      }
+    },
+    
+    "agendamentos": {
+      "fluxo_funcionario": {
+        "lista_solicitacoes": "Tabela com ações de aprovação/recusa",
+        "validacao_tempo_real": "Checagem de conflitos durante designação",
+        "modal_detalhes": "Visualização completa com histórico",
+        "comunicacao_automatica": "SMS/e-mail ao confirmar agendamento"
+      },
+      "fluxo_cliente": {
+        "solicitacao_sem_login": "Formulário simplificado com validação",
+        "token_acesso": "Geração automática via SMS para consulta",
+        "auto_gestao": "Cancelamento direto pelo cliente",
+        "lembretes_automaticos": "Notificação 24h antes do serviço"
+      },
+      "agenda_semanal": {
+        "visualizacao_cores": "Designação por profissional",
+        "drag_and_drop": "Redesignação direta na interface",
+        "filtros": ["Por profissional", "Por serviço", "Por status"]
+      }
+    },
+    
+    "gestao": {
+      "servicos": {
+        "crud_completo": "Cadastro de serviços com duração",
+        "bloqueio_inteligente": "Impede alteração se vinculado a futuros agendamentos"
+      },
+      "notificacoes": {
+        "sistema_inteligente": {
+          "conflitos": "Link direto para resolução",
+          "novas_solicitacoes": "Aprovação rápida via widget",
+          "lembretes": "Disparo automático 24h antes"
+        },
+        "gestao_status": "Alternância livre entre lido/não lido"
+      }
+    },
+    
+    "seguranca": {
+      "protecao_dados": "Criptografia de informações sensíveis",
+      "auditoria": "Log completo de alterações",
+      "rate_limiting": "Limite de 5 consultas/minuto",
+      "comunicacoes": {
+        "confirmacao_recebimento": "SMS instantâneo ao cliente",
+        "atualizacoes_status": "Notificação em tempo real",
+        "alertas_sistema": "Para funcionários sobre conflitos"
+      }
+    }
+  },
+  
+  "tecnologias_recomendadas": {
+    "frontend": {
+      "framework": "React + Material UI",
+      "bibliotecas": [
+        "react-big-calendar (agenda semanal)",
+        "react-hook-form (formulários)",
+        "notistack (notificações)"
+      ]
+    },
+    "backend": {
+      "framework": "NestJS (Node.js)",
+      "orm": "TypeORM",
+      "banco_dados": "PostgreSQL (dados transacionais)",
+      "cache_filas": "Redis"
+    },
+    "infraestrutura": {
+      "containerizacao": "Docker",
+      "deploy": "AWS ECS (escalabilidade automática)",
+      "monitoramento": "CloudWatch + Sentry"
+    },
+    "comunicacao": {
+      "sms": "Twilio",
+      "email": "Mailgun"
+    },
+    "testes": {
+      "unitarios": "Jest",
+      "e2e": "Cypress",
+      "cobertura": "Minimum 85%"
+    }
+  },
+  
+  "fluxos_principais": {
+    "novo_agendamento": {
+      "passos": [
+        "Cliente acessa tela deslizante",
+        "Preenche formulário simplificado",
+        "Validação em tempo real de horários",
+        "Recebe token de acesso via SMS",
+        "Sistema gera notificação para funcionários"
+      ],
+      "diagrama": "cliente -> solicitação -> validação -> confirmação -> token"
+    },
+    
+    "gestao_solicitacoes": {
+      "passos": [
+        "Funcionário visualiza widget no dashboard",
+        "Acessa lista completa de solicitações",
+        "Analisa detalhes em modal",
+        "Aprova (designando profissional) ou recusa (com motivo)",
+        "Sistema notifica cliente automaticamente"
+      ],
+      "diagrama": "dashboard -> lista -> modal -> ação -> notificação"
+    },
+    
+    "resolucao_conflitos": {
+      "passos": [
+        "Sistema detecta sobreposição de horários",
+        "Gera alerta no dashboard",
+        "Funcionário acessa agenda semanal",
+        "Redesigna profissional via drag-and-drop",
+        "Sistema recalcula horários afetados",
+        "Notifica clientes sobre alterações"
+      ],
+      "diagrama": "detecção -> alerta -> redesignação -> recálculo -> notificação"
+    }
+  },
+  
+  "roadmap": {
+    "v1.0": [
+      "Módulo básico de agendamento",
+      "Dashboard funcionário",
+      "Fluxo cliente sem autenticação"
+    ],
+    "v1.5": [
+      "Sistema de notificações inteligentes",
+      "Integração com SMS/e-mail",
+      "Agenda semanal interativa"
+    ],
+    "v2.0": [
+      "App mobile para funcionários",
+      "Integração com calendários externos",
+      "Relatórios analíticos"
+    ]
+  }
+}
