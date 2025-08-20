@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: bookeasy-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: BookEasyDB
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  api:
+    build:
+      context: ./src/BookEasy.Api
+    container_name: bookeasy-api
+    ports:
+      - "5000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: "Server=db;Database=BookEasyDB;User=root;Password=root;"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./src/BookEasy.Api:/src
+
+volumes:
+  mysql-data:
