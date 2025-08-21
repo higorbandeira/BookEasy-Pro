@@ -1,36 +1,33 @@
 version: '3.8'
 
 services:
-  db:
-    image: mysql:8.0
-    container_name: bookeasy-db
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: BookEasyDB
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-uroot", "-proot"]
-      interval: 5s
-      timeout: 10s
-      retries: 10
-
-  api:
-    build:
-      context: ./src/BookEasy.Api
-    container_name: bookeasy-api
+  backend:
+    build: ./backend
     ports:
       - "5000:80"
     environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__Default: "Server=db;Database=BookEasyDB;User=root;Password=root;"
+      - ConnectionStrings__Default=Host=db;Database=BookEasyDB;Username=postgres;Password=password
+      - JWT__Secret=super_secret_key_12345!
+      - JWT__ValidIssuer=bookeasy-api
+      - JWT__ValidAudience=bookeasy-angular
     depends_on:
-      db:
-        condition: service_healthy
+      - db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=BookEasyDB
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
     volumes:
-      - ./src/BookEasy.Api:/src
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
-  mysql-data:
+  pgdata:
