@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="BookEasy-Pro/BookEasy-Pro.ApiService/BookEasy-Pro.ApiService.csproj" />
+  <Project Path="BookEasy-Pro/BookEasy-Pro.AppHost/BookEasy-Pro.AppHost.csproj" Id="bcdb693b-a55c-4556-99b4-21ff0a13ddcf" />
+  <Project Path="BookEasy-Pro/BookEasy-Pro.ServiceDefaults/BookEasy-Pro.ServiceDefaults.csproj" />
+  <Project Path="BookEasy-Pro/BookEasy-Pro.Tests/BookEasy-Pro.Tests.csproj" />
+  <Project Path="BookEasy-Pro/BookEasy-Pro.Web/BookEasy-Pro.Web.csproj" />
+</Solution>
