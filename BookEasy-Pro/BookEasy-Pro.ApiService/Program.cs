@@ -9,6 +9,16 @@ builder.Services.AddProblemDetails();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddAuthentication()
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "http://localhost:8080/realms/BookEasy";
+                    options.Audience = "bookeasy-app";
+                    options.RequireHttpsMetadata = false;
+                });
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +43,8 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast");
+.WithName("GetWeatherForecast")
+.RequireAuthorization();
 
 app.MapDefaultEndpoints();
 
